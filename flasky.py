@@ -4,7 +4,7 @@ from flask_script import Manager
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
-from flask.ext.wtf import Form
+from flask_wtf import Form
 from wtforms import StringField, SubmitField
 from wtforms.validators import Required
 
