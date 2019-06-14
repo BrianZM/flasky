@@ -22,12 +22,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:csmc+12345@
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['MAIL_SERVER'] = 'smtp.office365.com'
-app.config['MAIL_PORT'] = 465
+app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['FLASKY_MAIL_SUBJECT_PREFIX'] = '[Flasky]'
-app.config['FLASKY_MAIL_SENDER'] = 'Flasky Admin <flasky@example.com>'
+app.config['FLASKY_MAIL_SENDER'] = 'Brian Zhao <brian.zhao@live.cn>'
 app.config['FLASKY_ADMIN'] = os.environ.get('FLASKY_ADMIN')
 
 manager = Manager(app)
@@ -74,9 +74,9 @@ def index():
             user = User(username=form.name.data)
             db.session.add(user)
             session['known'] = False
-            # if app.config['FLASKY_ADMIN']:
-            #     send_email(app.config['FLASKY_ADMIN'], 'New User',
-            #                'mail/new_user', user=user)
+            if app.config['FLASKY_ADMIN']:
+                send_email(app.config['FLASKY_ADMIN'], 'New User',
+                           'mail/new_user', user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
