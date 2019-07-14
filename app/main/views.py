@@ -1,6 +1,6 @@
 from flask import render_template, session, redirect, url_for, current_app
 from .. import db
-from ..models import User
+from ..models import User,Role
 from ..email import send_email
 from . import main
 from .forms import NameForm
@@ -8,6 +8,7 @@ from .forms import NameForm
 
 @main.route('/', methods=['GET', 'POST'])
 def index():
+    Role.insert_roles()
     form = NameForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.name.data).first()
